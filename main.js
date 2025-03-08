@@ -6,7 +6,7 @@ dotenv.config();
 
 const s3Mock = mockClient(IAMClient);
 
-client = new IAMClient({
+const iamClient = new IAMClient({
     region: process.env.region,
     credentials: {
         accessKeyId: process.env.accessKeyId,
@@ -15,8 +15,8 @@ client = new IAMClient({
 });
 
 const userRequirements = {
-    UserName: "Ideally will take from user",
-    PermissionsBoundary: "Will add these too",
+    UserName: "Example Name",
+    PermissionsBoundary: "",
     Tags: [
         {
             Key: "UserId",
@@ -24,4 +24,13 @@ const userRequirements = {
         },
     ]
 
+}
+
+const createUser = new CreateUserCommand(userRequirements);
+try {
+    const response = await iamClient.send(createUser);
+    console.log("User created: ", response);
+    
+} catch (error) {
+    console.log(error);
 }
