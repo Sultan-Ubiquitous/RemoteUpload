@@ -1,6 +1,5 @@
 import * as dotenv from 'dotenv';
 import { IAMClient, CreateUserCommand } from "@aws-sdk/client-iam";
-import { mockClient } from 'aws-sdk-client-mock';
 
 dotenv.config();
 
@@ -22,12 +21,19 @@ const boundaryPolicy = {
                 Sid: "AllowBucketCreation",
                 Effect: "Allow",
                 Action: "s3:CreateBucket",
-                Resources: "*",
-                Condition: {
-                    "StringLike": {
-                        "s3:LocationConstraint": process.env.region
-                    }
-                }
+                Resource: "*",
+            },
+            {
+                Sid: "AllowObjectManagement",
+                Effect: "Allow",
+                Action: [
+                    "s3:PutObject",
+                    "s3:GetObject",
+                    "s3:ListBucket",
+                    "s3:GetBucketLocation",
+                    "s3:AbortMultipartUpload",
+                    "s3:ListMultipartUploadParts"
+                ]
             }
         ]
     })
