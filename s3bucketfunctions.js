@@ -1,6 +1,7 @@
 import * as dotenv from 'dotenv';
 import { S3Client, CreateBucketCommand } from '@aws-sdk/client-s3';
 
+dotenv.config();
 
 const createBucket = async (bucketName) => {
     try {
@@ -20,3 +21,5 @@ const createBucket = async (bucketName) => {
     }
 }
 
+
+export {createBucket};
