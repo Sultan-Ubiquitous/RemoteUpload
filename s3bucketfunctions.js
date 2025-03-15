@@ -22,4 +22,11 @@ const createBucket = async (bucketName) => {
 }
 
 
+
+const putIntoBucket = async() => {
+    
+}
+
+
+
 export {createBucket};
